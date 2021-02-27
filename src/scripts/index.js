@@ -20,6 +20,8 @@ document
 
 		const reader = new FileReader();
 		reader.onload = function (event) {
+			const textarea = document.getElementById('fileOutput');
+			textarea.textContent += event.target.result;
 			console.log(event.target.result);
 		};
 		reader.readAsText(obj['blah.txt']);
