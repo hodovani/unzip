@@ -6,27 +6,25 @@ Archive.init({
 	workerUrl: 'public/worker-bundle.js',
 });
 
-if (process.env.NODE_ENV === 'development') {
-	require('../index.html');
-}
-
 const textarea = document.getElementById('fileOutput');
+const fileInput = document.getElementById('fileInput');
+const treeView = document.getElementById('treeView');
 
-document
-	.getElementById('file')
-	.addEventListener('change', async (e) => {
-		const file = e.currentTarget.files[0];
 
-		const archive = await Archive.open(file);
-		let obj = await archive.extractFiles();
+fileInput.addEventListener('change', async (e) => {
+  const file = e.currentTarget.files[0];
 
-		walk({ node: obj, liId: 'treeView', name: file.name });
-	});
+  const archive = await Archive.open(file);
+  let obj = await archive.extractFiles();
+
+  treeView.innerHTML = '';
+
+  walk({ node: obj, liId: 'treeView', name: file.name });
+});
 
 function walk({ node, liId, name }) {
 	const root = document.getElementById(liId);
 	if (!(node instanceof File)) {
-		console.log(node);
 		const newUlId = uuidv4();
     const newUl = document.createElement('ul');
     newUl.classList.add('nested');
@@ -35,6 +33,7 @@ function walk({ node, liId, name }) {
 
 		const newLi = document.createElement('li');
     root.appendChild(newLi);
+    newLi.classList.add('folder');
     newLi.addEventListener("click", function (e) {
       e.preventDefault();
       e.stopPropagation();
@@ -59,7 +58,7 @@ function walk({ node, liId, name }) {
       });
     } else { 
       const span = document.createElement('span');
-      span.innerText = '<Empty folder>';
+      span.innerHTML = '<i>Empty folder</i>';
       root.appendChild(span);
     }
 	} else {
@@ -69,7 +68,7 @@ function walk({ node, liId, name }) {
 		li.addEventListener('click', () => {
 			const reader = new FileReader();
 			reader.onload = function (event) {
-				textarea.textContent += event.target.result;
+				textarea.textContent = event.target.result;
 			};
 			reader.readAsText(node);
 		});

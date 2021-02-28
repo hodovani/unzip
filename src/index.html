@@ -9,8 +9,18 @@
 		<title>webpack starterkit</title>
 	</head>
 	<body>
-		<input id="file" type="file" />
-		<ul id="treeView"></ul>
-		<textarea id="fileOutput"></textarea>
+    <p>
+      <span>🗄️ Please select an archive to explore it</span>
+      <p><input id="fileInput" type="file" /></p>
+    </p>
+		<div class="twoColumn">
+      <div class="column">
+        <span>🧭 Archive explorer:</span>
+        <ul id="treeView"><i>No archive chosen</i></ul>
+      </div>
+      <div class="column">
+        <textarea id="fileOutput"></textarea>
+      </div>
+    </div>
 	</body>
 </html>
