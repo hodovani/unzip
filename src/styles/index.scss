@@ -1,6 +1,11 @@
-$body-color: slateblue;
+/* eslint-disable */
 
-body {
-  color: $body-color;
-  font-family: sans-serif;
+/* Hide the nested list */
+.nested {
+  display: none;
+}
+
+/* Show the nested list when the user clicks on the caret/arrow (with JavaScript) */
+.active {
+  display: block;
 }

@@ -28,23 +28,43 @@ function walk({ node, liId, name }) {
 	if (!(node instanceof File)) {
 		console.log(node);
 		const newUlId = uuidv4();
-		const newUl = document.createElement('ul');
+    const newUl = document.createElement('ul');
+    newUl.classList.add('nested');
+
 		newUl.id = newUlId;
 
 		const newLi = document.createElement('li');
-		root.appendChild(newLi);
+    root.appendChild(newLi);
+    newLi.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      newLi.childNodes.forEach(c => {
+        console.log(c);
+        if (c.classList.contains('nested')) {
+          c.classList.toggle("active");
+        }
+      });
+    });
 
 		const span = document.createElement('span');
 		span.innerText = name;
 		newLi.appendChild(span);
 
-		root.appendChild(newUl);
-
-		Object.keys(node).forEach((key) => {
-			walk({ node: node[key], liId: newUlId, name: key });
-		});
+    newLi.appendChild(newUl);
+    
+    const keys = Object.keys(node);
+    if (keys.length > 0) {
+      keys.forEach((key) => {
+        walk({ node: node[key], liId: newUlId, name: key });
+      });
+    } else { 
+      const span = document.createElement('span');
+      span.innerText = '<Empty folder>';
+      root.appendChild(span);
+    }
 	} else {
-		const li = document.createElement('li');
+    const li = document.createElement('li');
+    li.addEventListener('click', function (e) { e.stopPropagation(); });
 		li.innerText = node.name;
 		li.addEventListener('click', () => {
 			const reader = new FileReader();
