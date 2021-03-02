@@ -10,6 +10,16 @@ const textarea = document.getElementById('fileOutput');
 const fileInput = document.getElementById('fileInput');
 const treeView = document.getElementById('treeView');
 
+fetch('https://api.mpds.io/v0/download/p?q=P50006769-1&fmt=raw&sid=null&ed=0').then(response => response.blob())
+  .then(async (blob) => {
+    const archive = await Archive.open(blob);
+    let obj = await archive.extractFiles();
+    treeView.innerHTML = '';
+    walk({ node: obj, liId: 'treeView', name: 'NaCl_225_cF8.7z' });
+});
+
+
+
 
 fileInput.addEventListener('change', async (e) => {
   const file = e.currentTarget.files[0];
