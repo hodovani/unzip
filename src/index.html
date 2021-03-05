@@ -11,7 +11,11 @@
 	</head>
 	<body>
     <p>
-      <span>🗄️ Please select an archive to explore it</span>
+      <span>🗄️ Please select an archive to explore it.</span>
+      <p>Put a link as a query parameter to download an external archive.</p>
+      <p>An example( <i><b>https://[base-url]</b>/?archiveUrl=<b>[link-to-archive]</b></i> ):</p>
+      <a href="http://localhost:8080/?archiveUrl=https://api.mpds.io/v0/download/p?q=P50006769-1&fmt=raw&sid=null&ed=0">http://localhost:8080/?archiveUrl=https://api.mpds.io/v0/download/p?q=P50006769-1&fmt=raw&sid=null&ed=0</a>
+      <p>Or select a local file in the input below:</p>
       <p><input id="fileInput" type="file" /></p>
     </p>
 		<div class="twoColumn">
