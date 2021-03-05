@@ -24,6 +24,8 @@ module.exports = {
 			patterns: [
 				{ from: 'node_modules/libarchive.js/dist', to: 'public' },
 				{ from: Path.resolve(__dirname, '../public'), to: 'public' },
+				{ from: Path.resolve(__dirname, '../src/test_data') },
+				{ from: Path.resolve(__dirname, '../src/assets'), to: 'public' },
 			],
 		}),
 		new HtmlWebpackPlugin({
@@ -43,7 +45,7 @@ module.exports = {
 				type: 'javascript/auto',
 			},
 			{
-				test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
+				test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|7z)(\?.*)?$/,
 				use: {
 					loader: 'file-loader',
 					options: {
